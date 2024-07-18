@@ -127,7 +127,7 @@ func deleteNullInObj(m map[string]interface{}) (map[string]interface{}, error) {
 	filteredMap := make(map[string]interface{})
 
 	for key, val := range m {
-		if val == nil || isZero(reflect.ValueOf(val)) {
+		if val == nil || (isZero(reflect.ValueOf(val)) && key != "default") {
 			continue
 		}
 		switch typedVal := val.(type) {
