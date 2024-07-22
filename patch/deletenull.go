@@ -16,6 +16,7 @@ package patch
 
 import (
 	"reflect"
+	"strings"
 	"unsafe"
 
 	"emperror.dev/errors"
@@ -127,7 +128,7 @@ func deleteNullInObj(m map[string]interface{}) (map[string]interface{}, error) {
 	filteredMap := make(map[string]interface{})
 
 	for key, val := range m {
-		if val == nil || (isZero(reflect.ValueOf(val)) && key != "default") {
+		if val == nil || (isZero(reflect.ValueOf(val)) && strings.ToLower(key) != "default") {
 			continue
 		}
 		switch typedVal := val.(type) {
